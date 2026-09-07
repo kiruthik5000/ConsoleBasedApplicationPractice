@@ -1,7 +1,10 @@
-import model.Employee;
 import repository.EmployeeRepository;
+import repository.ScheduleRepository;
+import repository.TrainRepository;
 import service.EmployeeService;
+import service.TrainService;
 import ui.EmployeeUI;
+import ui.TrainUI;
 
 import java.util.Scanner;
 
@@ -21,7 +24,15 @@ public class Main {
                 employeeUI.start();
                 break;
             case 2:
-
-        }
+                TrainRepository tr = new TrainRepository();
+                ScheduleRepository sr = new ScheduleRepository();
+                TrainService ts = new TrainService(tr, sr);
+                TrainUI tu = new TrainUI(ts);
+                tu.start();
+                break;
+            default:
+                System.out.println("Invalid option selected.");
+                return;
+            }
         }
 }

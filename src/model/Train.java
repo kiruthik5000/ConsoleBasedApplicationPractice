@@ -24,25 +24,31 @@ public class Train implements Serializable {
         this.trainName = trainName;
     }
 
-    public List<Station> getRoute() {
+    public Set<Station> getRoute() {
         return route;
     }
 
-    public void setRoute(List<Station> route) {
+    public void setRoute(LinkedHashSet<Station> route) {
         this.route = route;
     }
 
     private String trainName;
-    private List<Station> route;
+    private Set<Station> route;
 
-    public Train(int trainNo, String trainName, List<Station> stations) {
+    public Train(int trainNo, String trainName, Set<Station> stations) {
         this.trainNo = trainNo;
         this.trainName = trainName;
-        this.route = List.copyOf(stations);
+        this.route = stations;
     }
 
-
-
+    @Override
+    public String toString() {
+        StringBuilder value = new StringBuilder("Train No: " + trainNo + "\nTrain Name: " + trainName + "\n Route:\n");
+        for (Station s : route) {
+           value.append("\t* - ").append(s.name()+"\n");
+        }
+        return value.toString();
+    }
     public int getSeralizeableUID() {
         return this.seralizeableUID;
     }
