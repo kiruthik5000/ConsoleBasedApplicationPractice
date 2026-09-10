@@ -1,4 +1,5 @@
 import Utils.Database;
+import Utils.InputHandler;
 import Utils.impl.SqlDatabase;
 import repository.*;
 import repository.impl.BookRepositoryImpl;
@@ -7,10 +8,7 @@ import service.BookService;
 import service.EmployeeService;
 import service.TrainService;
 import service.UserService;
-import ui.DatabaseUI;
-import ui.EmployeeUI;
-import ui.LibraryUI;
-import ui.TrainUI;
+import ui.*;
 
 import java.util.Scanner;
 
@@ -21,8 +19,8 @@ public class Main {
         System.out.println("2. Train Booking Application");
         System.out.println("3. Library Management");
         System.out.println("4. DB Management");
-        System.out.println("Enter the application no: ");
-        int n = Integer.parseInt(s.nextLine());
+        System.out.println("5. Movie Ticket");
+        int n = InputHandler.getNumericValue("Enter the application no: ");
         switch (n) {
             case 1:
 
@@ -50,6 +48,11 @@ public class Main {
                 Database db = new SqlDatabase();
                 DatabaseUI dbui = new DatabaseUI(db.connect());
                 dbui.start();
+                break;
+            case 5:
+                MovieUI mui = new MovieUI();
+                mui.start();
+                break;
             default:
                 System.out.println("Invalid option selected.");
             }
