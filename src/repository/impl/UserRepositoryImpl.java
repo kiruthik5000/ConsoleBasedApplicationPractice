@@ -7,6 +7,7 @@ import repository.UserRepository;
 import java.util.*;
 
 public class UserRepositoryImpl implements UserRepository {
+    private int nextUid = 103;
     Map<Integer, User> userMap;
 
     public UserRepositoryImpl() {
@@ -22,9 +23,9 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public boolean addUser(User user) {
-        int nextIndexValue = userMap.keySet().stream().max(Integer::compareTo).orElse(0) + 1;
-        user.setUId(nextIndexValue);
-        userMap.put(nextIndexValue, user);
+        user.setUId(nextUid);
+        userMap.put(user.getUId(), user);
+        nextUid++;
         return true;
     }
 

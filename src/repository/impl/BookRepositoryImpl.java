@@ -11,6 +11,7 @@ import java.util.Map;
 public class BookRepositoryImpl implements BookRepository {
     private final Map<Integer, Book> bookMap;
     private final Map<Integer, Integer> availabilityMap;
+    private int nextBookId = 105;
 
     public BookRepositoryImpl() {
         bookMap = new LinkedHashMap<>();
@@ -25,10 +26,17 @@ public class BookRepositoryImpl implements BookRepository {
         availabilityMap.put(103, 1);
         availabilityMap.put(104, 1);
     }
-
     @Override
-    public List<Book> getAllBooks() {
-        return new ArrayList<>(bookMap.values());
+    public List<Book> getAllBooks(){
+        return bookMap.values().stream().toList();
+    }
+    @Override
+    public List<Book> getAllBooksByAuthor(String authorName) {
+        return bookMap.values()
+                .stream()
+                .filter(k->k.getAuthorName()
+                        .contains(authorName))
+                .toList();
     }
 
     @Override
@@ -49,13 +57,10 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public boolean addBook(Book book, int availability) {
-        int nextBookId = bookMap.keySet()
-                .stream()
-                .max(Integer::compareTo)
-                .orElse(0) + 1;
+    public Book addBook(Book book, int availability) {
         book.setBookId(nextBookId);
         bookMap.put(nextBookId, book);
-        return true;
+        nextBookId++;
+        return book;
     }
 }

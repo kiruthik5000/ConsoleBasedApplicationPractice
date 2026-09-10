@@ -13,9 +13,10 @@ public class User {
         return designation;
     }
 
-    private final Designation designation;
+    private Designation designation;
     private double pendingAmt;
 
+    public void setDesignation(Designation designation) {this.designation = designation;}
     public String getName() {
         return name;
     }
